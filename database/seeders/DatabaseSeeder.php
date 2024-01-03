@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
          // Create user
-         \App\Models\User::factory()->create([
+        \App\Models\User::factory()->create([
             'name' => 'Wilver Leal',
             'email' => 'wilver@leal.com',
             'password' => bcrypt('12345678'),
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         // Create user 2
         \App\Models\User::factory()->create([
             'name' => 'Regular',
-            'email' => '12345678',
+            'email' => 'regular@regular.com',
             'password' => bcrypt('12345678'),
         ]);
     }
