@@ -1,0 +1,7 @@
+table .btn-s {
+    display: flex;
+}
+
+table .btn-s a{
+    margin-right: 10px;
+}

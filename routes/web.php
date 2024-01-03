@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\HerramientaController;
+use App\Http\Controllers\MatConsumibleController;
+use App\Http\Controllers\PrestamoController;
+use App\Http\Controllers\RegistroController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
+Route::resource('/herramienta', HerramientaController::class)->middleware('auth');
+Route::resource('/matConsumible', MatConsumibleController::class)->middleware('auth');
+Route::resource('/prestamo', PrestamoController::class)->middleware('auth');
+Route::resource('/registro', RegistroController::class)->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
