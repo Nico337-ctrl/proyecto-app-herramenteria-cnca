@@ -9,7 +9,9 @@
 @section('content')
     <div class="container py-4">
         <h1>Herramientas</h1>
-        <a href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nueva herramienta</a>
+        @can('herramienta.create')
+            <a href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nueva herramienta</a>
+        @endcan
         <table id="tableH" class="table table-hover">
             <thead>
                 <tr>
@@ -33,11 +35,15 @@
                         <td>{{ $herramienta->estado }}</td>
                         <td class="btn-s">
                             {{-- <a href="{{ url('herramienta/'.$herramienta->id.'/edit' ) }}" class="btn btn-warning btn-sn" data-toggle="modal" data-target="#ModalEdit" data-id="{{ $herramienta->id }}"><i class="fa-solid fa-pen-to-square"></i></a> --}}
-                            <a href="#" class="btn btn-warning btn-sn" data-toggle="modal" data-target="#ModalEdit{{ $herramienta->id }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            @can('herramienta.edit')
+                                <a href="#" class="btn btn-warning btn-sn" data-toggle="modal" data-target="#ModalEdit{{ $herramienta->id }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            @endcan
                             <form class="form__delete" action="{{ url('herramienta/'.$herramienta->id) }}" method="post" >
                                 @method("DELETE")
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sn"><i class="fa-solid fa-trash"></i></button>
+                                @can('herramienta.destroy')
+                                    <button type="submit" class="btn btn-danger btn-sn"><i class="fa-solid fa-trash"></i></button>
+                                @endcan
                             </form>
                         </td>
                     </tr>
@@ -97,6 +103,7 @@
                             </div>
                         </div>
                     </form>
+
                 @endforeach
             </tbody>
         </table>

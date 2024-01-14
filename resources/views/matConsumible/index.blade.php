@@ -9,7 +9,9 @@
 @section('content')
     <div class="container py-4">
         <h1>Materiales consumibles</h1>
-        <a  href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nueva matConsumible</a>
+        @can('matConsumible.create')
+            <a  href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nuevo material</a>
+        @endcan
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -36,9 +38,11 @@
                         {{-- <td>{{ $matConsumible->estado }}</td>                      --}}
                         <td class="btn-s">
                             {{-- <a href="{{ url('matConsumible/'.$matConsumible->id.'/edit' ) }}" class="btn btn-warning btn-sn" data-toggle="modal" data-target="#ModalEdit" data-id="{{ $matConsumible->id }}"><i class="fa-solid fa-pen-to-square"></i></a>   --}}
-                            <a href="#" class="btn btn-warning btn-sn edit-button" data-toggle="modal" data-target="#ModalEdit_{{ $matConsumible->id }}" data-id="{{ $matConsumible->id }}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
+                            @can('matConsumible.edit')
+                                <a href="#" class="btn btn-warning btn-sn edit-button" data-toggle="modal" data-target="#ModalEdit_{{ $matConsumible->id }}" data-id="{{ $matConsumible->id }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endcan
                             {{-- <a href="#" class="btn btn-warning btn-sn edit-button" data-toggle="modal" data-target="#ModalEdit_{{ $matConsumible->id }}" data-id="{{ $matConsumible->id }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a> --}}
@@ -46,7 +50,9 @@
                             <form class="form__delete" action="{{ url('matConsumible/'.$matConsumible->id) }}" method="post">
                                 @method("DELETE")
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sn"><i class="fa-solid fa-trash"></i></button>
+                                @can('matConsumible.destroy')
+                                    <button type="submit" class="btn btn-danger btn-sn"><i class="fa-solid fa-trash"></i></button>
+                                @endcan
                             </form>
                         </td>
                     </tr>

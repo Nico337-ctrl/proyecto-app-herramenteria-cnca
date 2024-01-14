@@ -22,6 +22,13 @@ class HerramientaController extends Controller
     public function create()
     {
         return view('herramienta.create');
+        // if (auth()->user()->hasRole('Admin')) {
+        //     return view('herramienta.create');
+        // } elseif (auth()->user()->hasRole('Regular')) {
+        //     abort(403, 'No tienes permisos de administrador para realizar esta acción. Solo los administradores pueden crear herramientas.');
+        // } else {
+        //     abort(403, 'No tienes permisos para realizar esta acción.');
+        // }
     }
 
     /**
@@ -46,6 +53,7 @@ class HerramientaController extends Controller
         $herramientas->estado = 'disponible';
         $herramientas->save();
 
+
         return view('herramienta.msg', ['herramientas' => Herramienta::all()]);
     }
 
@@ -63,7 +71,7 @@ class HerramientaController extends Controller
     public function edit($id)
     {
         $herramientas = Herramienta::find($id);
-        return view('herramienta.edit', ['herramientas' => $herramientas]); 
+        return view('herramienta.edit', ['herramientas' => $herramientas]);
     }
 
     /**
@@ -97,7 +105,7 @@ class HerramientaController extends Controller
     {
         $herramienta = Herramienta::find($id);
         $herramienta->delete();
-        
+
         return redirect('herramienta')->with('delete', 'ok');
     }
 }
