@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MatConsumible;
 use Illuminate\Http\Request;
+use App\Events\CambioRealizado;
 
 class MatConsumibleController extends Controller
 {
@@ -51,6 +52,7 @@ class MatConsumibleController extends Controller
         $matConsumible->estado = 'disponible';
         $matConsumible->save();
 
+        event(new CambioRealizado('mat_consumible', 'creacion', now()));
         return view('matConsumible.msg', ['matConsumibles' => MatConsumible::all()]);
     }
 
@@ -98,6 +100,7 @@ class MatConsumibleController extends Controller
         $matConsumible->cantidad = $request->input('cantidad');
         $matConsumible->save();
 
+        event(new CambioRealizado('mat_consumible', 'actualizacion', now()));
         return view('matConsumible.msg');
     }
 
@@ -108,7 +111,8 @@ class MatConsumibleController extends Controller
     {
         $matConsumible = MatConsumible::find($id);
         $matConsumible->delete();
-        
+
+        event(new CambioRealizado('mat_consumible', 'eliminacion', now()));
         return redirect('matConsumible')->with('delete', 'ok');
     }
 }

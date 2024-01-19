@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Herramienta;
+use App\Events\CambioRealizado;
 
 class HerramientaController extends Controller
 {
@@ -22,13 +23,7 @@ class HerramientaController extends Controller
     public function create()
     {
         return view('herramienta.create');
-        // if (auth()->user()->hasRole('Admin')) {
-        //     return view('herramienta.create');
-        // } elseif (auth()->user()->hasRole('Regular')) {
-        //     abort(403, 'No tienes permisos de administrador para realizar esta acción. Solo los administradores pueden crear herramientas.');
-        // } else {
-        //     abort(403, 'No tienes permisos para realizar esta acción.');
-        // }
+
     }
 
     /**
@@ -53,7 +48,7 @@ class HerramientaController extends Controller
         $herramientas->estado = 'disponible';
         $herramientas->save();
 
-
+        event(new CambioRealizado('herramienta', 'creacion', now()));
         return view('herramienta.msg', ['herramientas' => Herramienta::all()]);
     }
 
@@ -62,7 +57,7 @@ class HerramientaController extends Controller
      */
     public function show(Herramienta $herramienta)
     {
-        // no se que e'
+        
     }
 
     /**
@@ -95,6 +90,8 @@ class HerramientaController extends Controller
         $herramienta->gaveta = $request->input('gaveta');
         $herramienta->save();
 
+        //haciendo llamado al evento obteniendo: origen, tipo_cambio, elemento_id y fecha (now(()))
+        event(new CambioRealizado('herramienta', 'actualizacion', now()));
         return view('herramienta.msg');
     }
 
@@ -106,6 +103,7 @@ class HerramientaController extends Controller
         $herramienta = Herramienta::find($id);
         $herramienta->delete();
 
+        event(new CambioRealizado('herramienta', 'eliminacion', now()));
         return redirect('herramienta')->with('delete', 'ok');
     }
 }

@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('registros', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->string('origen');
             $table->string('tipo_cambio');
-            $table->string('fecha_cambio');
-            $table->string('fecha_registro');
+            $table->string('elemento_id');
+            $table->string('fecha');
             $table->timestamps();
         });
     }

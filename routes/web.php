@@ -26,7 +26,7 @@ Route::resource('users', 'UserController');
 Route::resource('/herramienta', HerramientaController::class)->middleware('auth')->names('herramienta');
 Route::resource('/matConsumible', MatConsumibleController::class)->middleware('auth')->names('matConsumible');
 // Route::resource('/prestamo', PrestamoController::class)->middleware('auth');
-// Route::resource('/registro', RegistroController::class)->middleware('auth');
+Route::resource('/registro', RegistroController::class)->middleware('auth')->names('registro');
 
 
 
