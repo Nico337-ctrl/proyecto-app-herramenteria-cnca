@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('origen');
             $table->string('tipo_cambio');
             $table->string('elemento_id');
-            $table->string('fecha');
+            $table->string('fecha')->default(now());
             $table->timestamps();
         });
     }

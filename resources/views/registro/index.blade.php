@@ -15,8 +15,9 @@
                 <tr>
                     <th>Origen de cambio</th>
                     <th>Tipo de cambio</th>
-                    <th>Fecha de cambio</th>
+                    <th>Elemento alterado</th>
                     <th>Fecha de registro</th>
+            
                 </tr>
             </thead>
             <tbody>
@@ -24,9 +25,10 @@
                     <tr>
                         <td>{{ $registro->origen }}</td>
                         <td>{{ $registro->tipo_cambio }}</td>
-                        <td>{{ $registro->fecha_cambio}}</td>
-                        <td>{{ $registro->fecha_registro}}</td>
-            
+                        <td>{{ $registro->elemento_id }}</td>
+                        <td>{{ $registro->fecha}}</td>
+
+
                     </tr>
                 @endforeach
             </tbody>

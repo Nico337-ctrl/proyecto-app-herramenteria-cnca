@@ -52,7 +52,8 @@ class MatConsumibleController extends Controller
         $matConsumible->estado = 'disponible';
         $matConsumible->save();
 
-        event(new CambioRealizado('mat_consumible', 'creacion', now()));
+        $descripcion = $matConsumible->descripcion;
+        event(new CambioRealizado('mat_consumible', 'creacion', $descripcion, now()));
         return view('matConsumible.msg', ['matConsumibles' => MatConsumible::all()]);
     }
 
@@ -100,7 +101,8 @@ class MatConsumibleController extends Controller
         $matConsumible->cantidad = $request->input('cantidad');
         $matConsumible->save();
 
-        event(new CambioRealizado('mat_consumible', 'actualizacion', now()));
+        $descripcion = $matConsumible->descripcion;
+        event(new CambioRealizado('mat_consumible', 'actualizacion', $descripcion, now()));
         return view('matConsumible.msg');
     }
 
@@ -112,7 +114,8 @@ class MatConsumibleController extends Controller
         $matConsumible = MatConsumible::find($id);
         $matConsumible->delete();
 
-        event(new CambioRealizado('mat_consumible', 'eliminacion', now()));
+        $descripcion = $matConsumible->descripcion;
+        event(new CambioRealizado('mat_consumible', 'eliminacion', $descripcion, now()));
         return redirect('matConsumible')->with('delete', 'ok');
     }
 }

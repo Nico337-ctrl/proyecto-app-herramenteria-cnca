@@ -13,6 +13,7 @@ class CambioRealizado
 
     public $origen;
     public $tipo;
+    public $elemento_id;
     public $fecha;
 
     /**
@@ -20,10 +21,11 @@ class CambioRealizado
      *
      * @return void
      */
-    public function __construct($origen, $tipo, $fecha)
+    public function __construct($origen, $tipo, $elemento_id, $fecha)
     {
         $this->origen = $origen;
         $this->tipo = $tipo;
+        $this->elemento_id = $elemento_id;
         $this->fecha = $fecha;
     }
 }

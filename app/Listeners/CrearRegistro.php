@@ -18,6 +18,7 @@ class CrearRegistro
         Registro::create([
             'origen' => $event->origen,
             'tipo_cambio' => $event->tipo,
+            'elemento_id' => $event->elemento_id,
             'fecha_cambio' => $event->fecha,
             'fecha_registro' => now(),
         ]);

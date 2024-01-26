@@ -48,7 +48,8 @@ class HerramientaController extends Controller
         $herramientas->estado = 'disponible';
         $herramientas->save();
 
-        event(new CambioRealizado('herramienta', 'creacion', now()));
+        $descripcion = $herramientas->descripcion;
+        event(new CambioRealizado('herramienta', 'creacion', $descripcion, now()));
         return view('herramienta.msg', ['herramientas' => Herramienta::all()]);
     }
 
@@ -57,7 +58,7 @@ class HerramientaController extends Controller
      */
     public function show(Herramienta $herramienta)
     {
-        
+
     }
 
     /**
@@ -90,8 +91,9 @@ class HerramientaController extends Controller
         $herramienta->gaveta = $request->input('gaveta');
         $herramienta->save();
 
+        $descripcion = $herramienta->descripcion;
         //haciendo llamado al evento obteniendo: origen, tipo_cambio, elemento_id y fecha (now(()))
-        event(new CambioRealizado('herramienta', 'actualizacion', now()));
+        event(new CambioRealizado('herramienta', 'actualizacion', $descripcion, now()));
         return view('herramienta.msg');
     }
 
@@ -103,7 +105,9 @@ class HerramientaController extends Controller
         $herramienta = Herramienta::find($id);
         $herramienta->delete();
 
-        event(new CambioRealizado('herramienta', 'eliminacion', now()));
+        $descripcion = $herramienta->descripcion;
+
+        event(new CambioRealizado('herramienta', 'eliminacion', $descripcion, now()));
         return redirect('herramienta')->with('delete', 'ok');
     }
 }
