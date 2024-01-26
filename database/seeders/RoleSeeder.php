@@ -36,6 +36,12 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'matConsumible.msg'])->syncRoles([$rol1]);
         Permission::create(['name' => 'matConsumible.destroy'])->syncRoles([$rol1]);
 
+        Permission::create(['name' => 'prestamo.index'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'prestamo.edit'])->syncRoles([$rol1], $rol2);
+        Permission::create(['name' => 'prestamo.create'])->syncRoles([$rol1], $rol2);
+        Permission::create(['name' => 'prestamo.msg'])->syncRoles([$rol1], $rol2);
+        Permission::create(['name' => 'prestamo.destroy'])->syncRoles([$rol1]);
+
         Permission::create(['name' => 'registro.index'])->syncRoles([$rol1, $rol2]);
         // Permission::create(['name' => 'registro.create'])->syncRoles([$rol1]);
         // $rol1->givePermissionTo(['herramienta.edit', 'herramienta.create', 'herramienta.msg', 'herramienta.destroy'
