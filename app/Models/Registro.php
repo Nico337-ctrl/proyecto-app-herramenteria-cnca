@@ -17,6 +17,11 @@ class Registro extends Model
 
     ];
 
+    public function prestamo()
+    {
+    return $this->hasOne(Prestamo::class, 'id', 'origen');
+    }
+
     public function herramienta()
     {
     return $this->hasOne(Herramienta::class, 'id', 'origen');
