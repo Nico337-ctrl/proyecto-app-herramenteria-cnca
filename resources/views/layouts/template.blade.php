@@ -83,6 +83,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="prestamo">Prestamos</a>
                         <a class="collapse-item" href="registro">Registros</a>
+                        <a class="collapse-item" href="reportes">Reportes</a>
                     </div>
                 </div>
             </li>
