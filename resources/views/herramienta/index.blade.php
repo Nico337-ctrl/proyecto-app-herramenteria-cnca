@@ -12,6 +12,9 @@
         @can('herramienta.create')
             <a href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nueva herramienta</a>
         @endcan
+        @can('herramienta.pdf')
+            <a href="herramienta/pdf" class="btn btn-primary btn-sm">Generar Reporte (PDF)</a>
+        @endcan
         <table id="tableH" class="table table-hover">
             <thead>
                 <tr>

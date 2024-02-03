@@ -12,6 +12,9 @@
         @can('matConsumible.create')
             <a  href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nuevo material</a>
         @endcan
+        @can('matConsumible.pdf')
+            <a href="matConsumible/pdf" class="btn btn-primary btn-sm">Generar Reporte (PDF)</a>
+        @endcan
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -21,7 +24,6 @@
                     <th>Entrepaño</th>
                     <th>Medida</th>
                     <th>Cantidad</th>
-                    {{-- <th>Estado</th> --}}
                     <th>ACCIONES</th>
                 </tr>
             </thead>
