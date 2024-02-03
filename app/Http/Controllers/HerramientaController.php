@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Herramienta;
 use App\Events\CambioRealizado;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class HerramientaController extends Controller
 {
@@ -24,6 +26,13 @@ class HerramientaController extends Controller
     {
         return view('herramienta.create');
 
+    }
+
+    //funcion para generar pdfs
+    public function pdf(){
+        $herramientas = Herramienta::all();
+        $pdf = Pdf::loadView('herramienta.pdf', ['herramientas'=>$herramientas]);
+        return $pdf->stream();
     }
 
     /**

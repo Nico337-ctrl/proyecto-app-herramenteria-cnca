@@ -25,107 +25,6 @@ class PrestamoController extends Controller
         return view('prestamo.create', ['herramientas' => Herramienta::all(), 'mat_consumibles' => MatConsumible::all()]);
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'instructor_prestamista' => 'required|max:255',
-    //         'nombre_aprendiz' => 'required|max:255',
-    //         'ficha_aprendiz' => 'required',
-    //         'id_aprendiz' => 'required',
-    //         'dias_por_fuera' => 'nullable',
-    //         'obvervacion' => 'nullable',
-    //         'user_id' => 'nullable',
-    //         'herramienta_id' => 'nullable',
-    //         'matConsumible_id' => 'nullable',
-    //     ]);
-
-    //     // Crear una instancia de Prestamo
-    //     $prestamo = new Prestamo();
-    //     $prestamo->instructor_prestamista = $request->input('instructor_prestamista');
-    //     $prestamo->nombre_aprendiz = $request->input('nombre_aprendiz');
-    //     $prestamo->ficha_aprendiz = $request->input('ficha_aprendiz');
-    //     $prestamo->id_aprendiz = $request->input('id_aprendiz');
-    //     $prestamo->dias_por_fuera = 1;
-    //     $prestamo->observacion = 'ninguna';
-    //     $prestamo->user_id = auth()->user()->id;
-    //     $prestamo->herramienta_id = $request->input('herramienta_id');
-    //     $prestamo->mat_consumible_id = $request->input('mat_consumible_id');
-
-    //     // Cambiar el estado de la herramienta a "prestado"
-    //     $herramienta = Herramienta::find($request->input('herramienta_id'));
-    //     $herramienta->estado = 'prestado';
-    //     $herramienta->save();
-
-    //     // Cambiar el estado del material consumible a "prestado"
-    //     $matConsumible = MatConsumible::find($request->input('mat_consumible_id'));
-    //     $matConsumible->estado = 'prestado';
-    //     $matConsumible->save();
-
-    //     // Guardar el préstamo en la base de datos
-    //     $prestamo->save();
-
-    //     return view('prestamo.msg', ['prestamos' => Prestamo::all(), 'herramientas' => Herramienta::all(), 'mat_consumibles' => MatConsumible::all()]);
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'instructor_prestamista' => 'required|max:255',
-    //         'nombre_aprendiz' => 'required|max:255',
-    //         'ficha_aprendiz' => 'required',
-    //         'id_aprendiz' => 'required',
-    //         'dias_por_fuera' => 'nullable',
-    //         'observacion' => 'nullable',
-    //         'user_id' => 'nullable',
-    //         'herramienta_id' => 'nullable',
-    //         'mat_consumible_id' => 'nullable',
-    //     ]);
-
-    //     $prestamo = new Prestamo();
-    //     $prestamo->instructor_prestamista = $request->input('instructor_prestamista');
-    //     $prestamo->nombre_aprendiz = $request->input('nombre_aprendiz');
-    //     $prestamo->ficha_aprendiz = $request->input('ficha_aprendiz');
-    //     $prestamo->id_aprendiz = $request->input('id_aprendiz');
-    //     $prestamo->dias_por_fuera = 1; // O ajusta según tus necesidades
-    //     $prestamo->observacion = 'ninguna'; // O ajusta según tus necesidades
-    //     $prestamo->user_id = auth()->user()->id;
-
-    //     // Verificar si se proporciona un 'herramienta_id'
-    //     if ($request->has('herramienta_id')) {
-    //         $herramienta = Herramienta::find($request->input('herramienta_id'));
-
-    //         if (!$herramienta) {
-    //             return redirect()->back()->with('error', 'La herramienta no existe.');
-    //         }
-
-    //         $prestamo->herramienta_id = $herramienta->id;
-    //         $herramienta->estado = 'prestado';
-    //         $herramienta->save();
-    //     }
-
-    //     // Verificar si se proporciona un 'mat_consumible_id'
-    //     if ($request->has('mat_consumible_id')) {
-    //         $matConsumible = MatConsumible::find($request->input('mat_consumible_id'));
-
-    //         if (!$matConsumible) {
-    //             return redirect()->back()->with('error', 'El material consumible no existe.');
-    //         }
-
-    //         $prestamo->mat_consumible_id = $matConsumible->id;
-    //         $matConsumible->estado = 'prestado';
-    //         // Agrega la lógica para restar la cantidad del material consumible aquí
-    //         $matConsumible->save();
-    //     }
-
-    //     $prestamo->save();
-
-    //     return view('prestamo.msg', [
-    //         'prestamos' => Prestamo::all(),
-    //         'herramientas' => Herramienta::all(),
-    //         'mat_consumibles' => MatConsumible::all(),
-    //     ]);
-    // }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -140,7 +39,7 @@ class PrestamoController extends Controller
             'mat_consumible_id' => 'nullable',
             'cantidad' => 'nullable|numeric', // Ajusta según tus requisitos de validación
         ]);
-    
+
         $prestamo = new Prestamo();
         $prestamo->instructor_prestamista = $request->input('instructor_prestamista');
         $prestamo->nombre_aprendiz = $request->input('nombre_aprendiz');
@@ -151,19 +50,19 @@ class PrestamoController extends Controller
         $prestamo->user_id = auth()->user()->id;
         $prestamo->herramienta_id = $request->input('herramienta_id');
         $prestamo->mat_consumible_id = $request->input('mat_consumible_id');
-        
+
         // Restar la cantidad prestada en la tabla MatConsumibles
         if ($request->input('mat_consumible_id')) {
             $matConsumible = MatConsumible::find($request->input('mat_consumible_id'));
             $cantidad = $request->input('cantidad');
-    
+
             // Asegúrate de manejar adecuadamente la lógica de restar la cantidad
             if ($matConsumible && is_numeric($cantidad) && $cantidad > 0) {
                 $matConsumible->cantidad -= $cantidad;
                 $matConsumible->save();
             }
         }
-    
+
         // Cambiar el estado de la herramienta a "prestado"
         if ($request->input('herramienta_id')) {
             $herramienta = Herramienta::find($request->input('herramienta_id'));
@@ -172,18 +71,18 @@ class PrestamoController extends Controller
                 $herramienta->save();
             }
         }
-    
+
         $prestamo->save();
-    
+
         return view('prestamo.msg', [
             'prestamos' => Prestamo::all(),
             'herramientas' => Herramienta::all(),
             'mat_consumibles' => MatConsumible::all()
         ]);
     }
-    
 
-   
+
+
     public function show(Prestamo $prestamo)
     {
         //
@@ -240,7 +139,7 @@ class PrestamoController extends Controller
 
         return view('prestamo.msg', ['prestamo' => Prestamo::all()]);
     }
-    
+
     public function destroy($id)
     {
         //

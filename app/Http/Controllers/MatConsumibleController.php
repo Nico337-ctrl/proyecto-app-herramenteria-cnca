@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MatConsumible;
 use Illuminate\Http\Request;
 use App\Events\CambioRealizado;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MatConsumibleController extends Controller
 {
@@ -23,8 +24,14 @@ class MatConsumibleController extends Controller
      */
     public function create()
     {
-        //
         return view('matConsumible.create');
+    }
+
+    //funcion para generar pdfs
+    public function pdf(){
+        $matConsumibles = MatConsumible::all();
+        $pdf = Pdf::loadView('herramienta.pdf', ['herramientas'=>$matConsumibles]);
+        return $pdf->stream();
     }
 
     /**

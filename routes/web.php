@@ -21,16 +21,19 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/herramienta/pdf', [App\Http\Controllers\HerramientaController::class, 'pdf'])->middleware('auth')->name('herramienta.pdf');
+Route::get('/matConsumible/pdf', [App\Http\Controllers\MatConsumibleController::class, 'pdf'])->middleware('auth')->name('matConsumible.pdf');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
 Route::resource('users', 'UserController');
 
+//rutas generales
 Route::resource('/herramienta', HerramientaController::class)->middleware('auth')->names('herramienta');
 Route::resource('/matConsumible', MatConsumibleController::class)->middleware('auth')->names('matConsumible');
 Route::resource('/prestamo', PrestamoController::class)->middleware('auth')->names('prestamo');
 Route::resource('/registro', RegistroController::class)->middleware('auth')->names('registro');
 
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
