@@ -15,9 +15,9 @@
                 <tr>
                     <th>Origen de cambio</th>
                     <th>Tipo de cambio</th>
-                    <th>Elemento alterado</th>
+                    <th>Elemento alterado/Aprendiz</th>
                     <th>Fecha de registro</th>
-            
+
                 </tr>
             </thead>
             <tbody>
