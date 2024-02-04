@@ -6,6 +6,7 @@ use App\Models\Prestamo;
 use Illuminate\Http\Request;
 use App\Models\Herramienta;
 use App\Models\MatConsumible;
+use App\Events\CambioRealizado;
 
 
 class PrestamoController extends Controller
@@ -73,7 +74,8 @@ class PrestamoController extends Controller
         }
 
         $prestamo->save();
-
+        $nombre_prestamo = $prestamo->nombre_aprendiz;
+        event(new CambioRealizado('prestamo', 'prestamo realizado', $nombre_prestamo, now()));
         return view('prestamo.msg', [
             'prestamos' => Prestamo::all(),
             'herramientas' => Herramienta::all(),
@@ -136,7 +138,8 @@ class PrestamoController extends Controller
 
         // Guardar los cambios en el préstamo
         $prestamo->save();
-
+        $nombre_prestamo = $prestamo->nombre_aprendiz;
+        event(new CambioRealizado('prestamo', 'prestamo devolucion', $nombre_prestamo, now()));
         return view('prestamo.msg', ['prestamo' => Prestamo::all()]);
     }
 
@@ -145,7 +148,8 @@ class PrestamoController extends Controller
         //
         $prestamo = Prestamo::find($id);
         $prestamo->delete();
-
+        $nombre_prestamo = $prestamo->nombre_aprendiz;
+        event(new CambioRealizado('prestamo', 'prestamo eliminado', $nombre_prestamo, now()));
         return redirect('prestamo')->with('delete', 'ok');
     }
 }

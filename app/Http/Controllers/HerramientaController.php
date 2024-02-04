@@ -91,7 +91,7 @@ class HerramientaController extends Controller
             'estante' => 'required',
             'gaveta' => 'required',
         ]);
-
+        
         $herramienta = Herramienta::find($id);
         $herramienta->codigo = $request->input('codigo');
         $herramienta->descripcion = $request->input('descripcion');
