@@ -64,8 +64,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="herramienta">Herramientas</a>
-                        <a class="collapse-item" href="matConsumible">Material consumible</a>
+                        <a class="collapse-item" href="herramienta">Inv Herramientas</a>
+                        <a class="collapse-item" href="matConsumible">Inv Material consumible</a>
                     </div>
                 </div>
             </li>
@@ -81,9 +81,9 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="prestamo">Prestamos</a>
-                        <a class="collapse-item" href="registro">Registros</a>
-                        <a class="collapse-item" href="reportes">Reportes</a>
+                        <a class="collapse-item" href="prestamo">Realizar Prestamos</a>
+                        <a class="collapse-item" href="registro">Ver Registros</a>
+                        <a class="collapse-item" href="reportes">Realizar Reportes</a>
                     </div>
                 </div>
             </li>
