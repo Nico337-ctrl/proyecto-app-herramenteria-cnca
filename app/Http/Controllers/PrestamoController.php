@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Herramienta;
 use App\Models\MatConsumible;
 use App\Events\CambioRealizado;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class PrestamoController extends Controller
@@ -24,6 +25,12 @@ class PrestamoController extends Controller
     public function create()
     {
         return view('prestamo.create', ['herramientas' => Herramienta::all(), 'mat_consumibles' => MatConsumible::all()]);
+    }
+
+    public function pdf(){
+        $prestamos = Prestamo::all();
+        $pdf = Pdf::loadView('prestamo.pdf', ['prestamos'=>$prestamos]);
+        return $pdf->stream();
     }
 
     public function store(Request $request)
