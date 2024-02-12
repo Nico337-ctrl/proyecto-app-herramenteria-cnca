@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Registro; // Asegúrate de importar el modelo Registro
 use Carbon\Carbon;
 use App\Events\CambioRealizado;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RegistroController extends Controller
 {
@@ -14,6 +15,12 @@ class RegistroController extends Controller
     {
         $registros = Registro::all();
         return view('registro.index', ['registros' => $registros]);
+    }
+
+    public function pdf(){
+        $registros = Registro::all();
+        $pdf = Pdf::loadView('registro.pdf', ['registros'=>$registros]);
+        return $pdf->stream();
     }
 
 

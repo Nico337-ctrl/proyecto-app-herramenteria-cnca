@@ -39,7 +39,7 @@
                                     <label for="estante" class="col-sm-2 col-form-label">Estante:</label>
                                 </strong>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control"  name="estante"  id="estante" value="{{ old('estante') }}" required>
+                                    <input type="number" class="form-control"  name="estante"  id="estante" value="{{ old('estante') }}" required>
                                 </div>
 
                                 <strong>

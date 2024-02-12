@@ -4,17 +4,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('css/index-h.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/edit-h.css') }}">
 @endsection
 
 @section('content')
     <div class="container py-4">
         <h1>Herramientas</h1>
         @can('herramienta.create')
-            <a href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nueva herramienta</a>
+            <a id="newH" href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nueva herramienta</a>
         @endcan
         @can('herramienta.pdf')
-            <a href="herramienta/pdf" class="btn btn-primary btn-sm">Generar Reporte (PDF)</a>
+            <a href="herramienta/pdf" class="btn btn-danger btn-sm" target="_blank">Generar Reporte <strong>.PDF</strong></a>
         @endcan
+        <br>
+        <br>
         <table id="tableH" class="table table-hover">
             <thead>
                 <tr>
@@ -65,7 +68,7 @@
                                         @csrf
 
                                         <div class="md-3 row">
-                                            <label for="codigo" class="col-sm-2 col-form-label">Codigo</label>
+                                            <label id="codigo" for="codigo" class="col-sm-2 col-form-label">Codigo</label>
                                             <div class="col-sm-5">
                                                 <input type="text" class="form-control"  name="codigo"  id="codigo" value="{{ $herramienta->codigo }}" required>
                                             </div>
@@ -139,15 +142,22 @@
             });
     </script>
 
-    @if(session('delete') == 'ok')
+    <script>
+       $('#newH').on('submit',function(e){
+            e.preventDefault();
+        })
+    </script>
+    @if (Session::has('succes'))
         <script>
             Swal.fire({
-                title: "¡Herramienta eliminada!",
-                text: "Tu herramienta ha sido eliminada con éxito.",
+                title: "Guardada exitosamente",
+                text: "Su herramienta ha sido guardada",
                 icon: "success"
             });
         </script>
     @endif
+
+
 
     <script>
         $('.form__delete').submit(function(e){
@@ -160,7 +170,7 @@
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "¡Si, eliminar!",
+                confirmButtonText: "¡Si! eliminar",
                 cancelButtonText: "Cancelar",
 
             }).then((result) => {
@@ -171,5 +181,15 @@
             });
         });
     </script>
+    @if(session('delete') == 'ok')
+        <script>
+            Swal.fire({
+                title: "¡Herramienta eliminada!",
+                text: "Su herramienta ha sido eliminada con éxito.",
+                icon: "success"
+            });
+        </script>
+    @endif
+
 @endsection
 

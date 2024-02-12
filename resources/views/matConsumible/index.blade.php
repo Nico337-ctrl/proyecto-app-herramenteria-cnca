@@ -10,11 +10,13 @@
     <div class="container py-4">
         <h1>Materiales consumibles</h1>
         @can('matConsumible.create')
-            <a  href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nuevo material</a>
+            <a id="newMt" href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Ingresar nuevo material</a>
         @endcan
         @can('matConsumible.pdf')
-            <a href="matConsumible/pdf" class="btn btn-primary btn-sm">Generar Reporte (PDF)</a>
+            <a href="matConsumible/pdf" class="btn btn-danger btn-sm" target="_blank">Generar Reporte <strong>.PDF</strong></a>
         @endcan
+        <br>
+        <br>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -156,6 +158,22 @@
                 });
             });
     </script>
+
+
+    <script>
+        $('#newMt').on('submit',function(e){
+            e.preventDefault();
+        })
+    </script>
+    @if (Session::has('succes'))
+        <script>
+            Swal.fire({
+                title: "Guardado exitosamente",
+                text: "Su material ha sido guardado",
+                icon: "success"
+            });
+        </script>
+    @endif
 
     @if(session('delete') == 'ok')
     <script>

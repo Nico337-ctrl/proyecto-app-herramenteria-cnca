@@ -24,6 +24,7 @@ Route::get('/', function () {
 Route::get('/prestamo/pdf', [App\Http\Controllers\PrestamoController::class, 'pdf'])->middleware('auth')->name('prestamo.pdf');
 Route::get('/herramienta/pdf', [App\Http\Controllers\HerramientaController::class, 'pdf'])->middleware('auth')->name('herramienta.pdf');
 Route::get('/matConsumible/pdf', [App\Http\Controllers\MatConsumibleController::class, 'pdf'])->middleware('auth')->name('matConsumible.pdf');
+Route::get('/registro/pdf', [App\Http\Controllers\RegistroController::class, 'pdf'])->middleware('auth')->name('registro.pdf');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

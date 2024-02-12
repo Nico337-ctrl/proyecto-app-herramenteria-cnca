@@ -12,8 +12,10 @@
             <a href="#" data-toggle="modal" data-target="#ModalCreate" class="btn btn-primary btn-sm">Realizar un prestamo</a>
         @endcan
         @can('prestamo.pdf')
-            <a href="prestamo/pdf" class="btn btn-primary btn-sm">Generar Reporte (PDF)</a>
+            <a href="prestamo/pdf" class="btn btn-danger btn-sm" target="_blank">Generar Reporte <strong>.PDF</strong></a>
         @endcan
+        <br>
+        <br>
         <table id="tableH" class="table table-hover">
             <thead>
                 <tr>
