@@ -22,10 +22,16 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
+//rutas de importe de archivos xlsx (excel)
 Route::get('/excel/index', [App\Http\Controllers\ExcelController::class, 'index'])->middleware('auth')->name('excel.index');
+//ruta de importe y exporte de herrammientas
 Route::post('/excel/import', [App\Http\Controllers\ExcelController::class, 'import'])->middleware('auth')->name('excel.import');
-Route::post('/excel/export', [App\Http\Controllers\ExcelController::class, 'export'])->middleware('auth')->name('excel.export');
+// Route::post('/excel/export', [App\Http\Controllers\ExcelController::class, 'export'])->middleware('auth')->name('excel.export');
+
+
+//ruta de importe y exporte de materiales consumibles
+Route::post('/excel/import2', [App\Http\Controllers\ExcelController::class, 'import2'])->middleware('auth')->name('excel.import2');
+
 
 //rutas de generacion de pdfs
 Route::get('/prestamo/pdf', [App\Http\Controllers\PrestamoController::class, 'pdf'])->middleware('auth')->name('prestamo.pdf');

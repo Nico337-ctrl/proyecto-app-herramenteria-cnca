@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\HerramientaImport;
-use App\Models\Herramienta;
-use App\Models\MatConsumible;
+use App\Imports\MatConsumibleImport;
+
 
 
 class ExcelController extends Controller
@@ -25,7 +25,17 @@ class ExcelController extends Controller
         ]);
         $file = $request->file('documento');
         Excel::import(new HerramientaImport, $file);
-        return redirect()->route('excel.index');
+        return redirect()->route('herramienta.index');
+    }
+
+    public function import2(Request $request)
+    {
+        $request->validate([
+            'documento' => 'required|mimes:xlsx|max:5000'
+        ]);
+        $file = $request->file('documento');
+        Excel::import(new MatConsumibleImport(), $file);
+        return redirect()->route('matConsumible.index');
     }
 
     public function export()

@@ -21,4 +21,17 @@
         </div>
     @endcan
 
+    @can('excel.import')
+        <div class="container py-4">
+            <h1>Importar Excels de Materiales consumibles</h1>
+            <br>
+            <br>
+            <form method="POST" action="{{ route('excel.import2') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="documento">
+                <input type="submit" value="Importar Excel">
+            </form>
+        </div>
+    @endcan
+
 @endsection

@@ -26,6 +26,7 @@ class MatConsumibleImport implements ToModel, WithHeadingRow, WithBatchInserts, 
                 'estante' => $row['estante'] ?? null,
                 'gaveta' => $row['gaveta'] ?? null,
                 'medida' => $row['medida'] ?? null,
+                'cantidad' => $row['cantidad'] ?? null,
                 'estado' => 'disponible',
             ]);
         } else {
