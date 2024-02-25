@@ -9,6 +9,15 @@ class Herramienta extends Model
 {
     use HasFactory;
     protected $table = 'herramientas';
+    
+    protected $fillable = [
+        'codigo',
+        'descripcion',
+        'estante',
+        'gaveta',
+        'medida',
+        'estado'
+    ];
 
     public function registro()
     {

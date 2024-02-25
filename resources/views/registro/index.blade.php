@@ -8,37 +8,34 @@
 @endsection
 @section('content')
 <div class="container py-4">
-
     <h1>Registros</h1>
     @can('registro.pdf')
-        <a href="registro/pdf" class="btn btn-danger btn-sm">Generar Reporte <strong>.PDF</strong></a>
+        <a href="registro/pdf" class="btn btn-danger btn-sm" target="_blank">Generar Reporte <strong>.PDF</strong></a>
     @endcan
     <br>
     <br>
     <table id="tableH" class="table table-hover">
-            <thead>
+        <thead>
+            <tr>
+                <th>Origen de cambio</th>
+                <th>Tipo de cambio</th>
+                <th>Elemento alterado/Aprendiz</th>
+                <th>Fecha de registro</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($registros as $registro)
                 <tr>
-                    <th>Origen de cambio</th>
-                    <th>Tipo de cambio</th>
-                    <th>Elemento alterado/Aprendiz</th>
-                    <th>Fecha de registro</th>
-
+                    <td>{{ $registro->origen }}</td>
+                    <td>{{ $registro->tipo_cambio }}</td>
+                    <td>{{ $registro->elemento_id }}</td>
+                    <td>{{ $registro->fecha}}</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($registros as $registro)
-                    <tr>
-                        <td>{{ $registro->origen }}</td>
-                        <td>{{ $registro->tipo_cambio }}</td>
-                        <td>{{ $registro->elemento_id }}</td>
-                        <td>{{ $registro->fecha}}</td>
-
-
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
     @section('scripts')
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

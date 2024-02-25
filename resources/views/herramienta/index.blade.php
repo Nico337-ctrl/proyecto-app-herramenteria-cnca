@@ -115,6 +115,8 @@
         </table>
     </div>
 
+    
+
     @include('herramienta.create')
 
 

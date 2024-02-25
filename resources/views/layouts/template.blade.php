@@ -82,8 +82,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="prestamo">Realizar Prestamos</a>
+                        <a class="collapse-item" href="excel">Realizar Importes</a>
                         <a class="collapse-item" href="registro">Ver Registros</a>
-                        <a class="collapse-item" href="reportes">Realizar Reportes</a>
+                        <a class="collapse-item" href="reportes">Generar Reportes</a>
                     </div>
                 </div>
             </li>

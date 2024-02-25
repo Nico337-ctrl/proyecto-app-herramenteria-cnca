@@ -8,6 +8,9 @@ use App\Events\CambioRealizado;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 
+
+
+
 class HerramientaController extends Controller
 {
     /**
@@ -25,15 +28,16 @@ class HerramientaController extends Controller
     public function create()
     {
         return view('herramienta.create');
-
     }
 
     //funcion para generar pdfs
-    public function pdf(){
+    public function pdf()
+    {
         $herramientas = Herramienta::all();
-        $pdf = Pdf::loadView('herramienta.pdf', ['herramientas'=>$herramientas]);
+        $pdf = Pdf::loadView('herramienta.pdf', ['herramientas' => $herramientas]);
         return $pdf->stream();
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -67,7 +71,6 @@ class HerramientaController extends Controller
      */
     public function show(Herramienta $herramienta)
     {
-
     }
 
     /**
@@ -91,7 +94,7 @@ class HerramientaController extends Controller
             'estante' => 'required',
             'gaveta' => 'required',
         ]);
-        
+
         $herramienta = Herramienta::find($id);
         $herramienta->codigo = $request->input('codigo');
         $herramienta->descripcion = $request->input('descripcion');

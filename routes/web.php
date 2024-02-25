@@ -4,6 +4,7 @@ use App\Http\Controllers\HerramientaController;
 use App\Http\Controllers\MatConsumibleController;
 use App\Http\Controllers\PrestamoController;
 use App\Http\Controllers\RegistroController;
+use App\Http\Controllers\ExcelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,12 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
+Route::get('/excel/index', [App\Http\Controllers\ExcelController::class, 'index'])->middleware('auth')->name('excel.index');
+Route::post('/excel/import', [App\Http\Controllers\ExcelController::class, 'import'])->middleware('auth')->name('excel.import');
+Route::post('/excel/export', [App\Http\Controllers\ExcelController::class, 'export'])->middleware('auth')->name('excel.export');
+
+//rutas de generacion de pdfs
 Route::get('/prestamo/pdf', [App\Http\Controllers\PrestamoController::class, 'pdf'])->middleware('auth')->name('prestamo.pdf');
 Route::get('/herramienta/pdf', [App\Http\Controllers\HerramientaController::class, 'pdf'])->middleware('auth')->name('herramienta.pdf');
 Route::get('/matConsumible/pdf', [App\Http\Controllers\MatConsumibleController::class, 'pdf'])->middleware('auth')->name('matConsumible.pdf');
@@ -32,10 +39,12 @@ Auth::routes();
 
 Route::resource('users', 'UserController');
 
-//rutas generales
+//rutas madre
+
+
+Route::resource('/excel', ExcelController::class)->middleware('auth')->names('excel');
 Route::resource('/herramienta', HerramientaController::class)->middleware('auth')->names('herramienta');
 Route::resource('/matConsumible', MatConsumibleController::class)->middleware('auth')->names('matConsumible');
 Route::resource('/prestamo', PrestamoController::class)->middleware('auth')->names('prestamo');
 Route::resource('/registro', RegistroController::class)->middleware('auth')->names('registro');
-
 

@@ -15,6 +15,7 @@
         @can('matConsumible.pdf')
             <a href="matConsumible/pdf" class="btn btn-danger btn-sm" target="_blank">Generar Reporte <strong>.PDF</strong></a>
         @endcan
+
         <br>
         <br>
         <table class="table table-hover">
@@ -126,6 +127,7 @@
             </tbody>
         </table>
     </div>
+
 
     @include('matConsumible.create')
 

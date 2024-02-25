@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\MatConsumible;
 use Illuminate\Http\Request;
 use App\Events\CambioRealizado;
+use App\Imports\MatConsumibleImport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class MatConsumibleController extends Controller
 {
@@ -30,8 +33,17 @@ class MatConsumibleController extends Controller
     //funcion para generar pdfs
     public function pdf(){
         $matConsumibles = MatConsumible::all();
-        $pdf = Pdf::loadView('herramienta.pdf', ['herramientas'=>$matConsumibles]);
+        $pdf = Pdf::loadView('matConsumible.pdf', ['matConsumibles'=>$matConsumibles]);
         return $pdf->stream();
+    }
+
+    //funcion para importe de archivos csv (excel)
+    public function import(Request $request){
+        $request->validate([
+            'document_csv'=> 'required|mimes:csv|max:2408'
+        ]);
+        $file = $request->file('document_csv');
+        Excel::import(new MatConsumibleImport, $file);
     }
 
     /**

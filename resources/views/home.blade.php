@@ -23,7 +23,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <!-- Sidebar - Brand 
+                <!-- Sidebar - Brand
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -157,7 +157,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -187,7 +187,7 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                    
+
 
 
                         <!-- <div class="topbar-divider d-none d-sm-block"></div> -->
@@ -597,8 +597,8 @@
                 <div class="modal-body">Selecciona "Salir" si deseas cerrar sesión o cancelar.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    
-                    <a  class="btn btn-primary" 
+
+                    <a  class="btn btn-primary"
                         href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">Salir
@@ -650,9 +650,10 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Inventarios generales de Herramenteria</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-fw fa-wrench fa-sm text-white-50"></i> Generar reporte</a>
+            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-fw fa-wrench fa-sm text-white-50"></i> Realizar importe</a> --}}
         </div>
+
 
         <!-- Content Row -->
         <div class="row">
