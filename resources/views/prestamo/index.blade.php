@@ -38,8 +38,8 @@
                         <td>{{ $prestamo->id_aprendiz }}</td>
                         <td>{{ $prestamo->dias_por_fuera }}</td>
                         <td>{{ $prestamo->observacion }}</td>
-                        <td>{{ $prestamo->created_at }}</td>
-                        <td>{{ $prestamo->updated_at }}</td>
+                        <td>{{ $prestamo->created_at->format('d/m/Y H:i:s')  }}</td>
+                        <td>{{ $prestamo->updated_at->format('d/m/Y H:i:s')  }}</td>
                         <td>
                             @can('prestamo.edit')
                                 <a href="{{ url('prestamo/'.$prestamo->id.'/edit' ) }}" class="btn btn-warning btn-sn" data-toggle="modal" data-target="#ModalEdit">Devolucion</a></td>

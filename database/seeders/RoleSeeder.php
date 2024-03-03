@@ -59,5 +59,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'excel.import'])->syncRoles([$rol1]);
         Permission::create(['name' => 'excel.export'])->syncRoles([$rol1]);
 
+        //permisos para paginas derivadas de reportes
+        Permission::create(['name' => 'reporte.index'])->syncRoles([$rol1, $rol2]);
+        Permission::create(['name' => 'reporte.pdf'])->syncRoles([$rol1, $rol2]);
+
     }
 }

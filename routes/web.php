@@ -5,6 +5,7 @@ use App\Http\Controllers\MatConsumibleController;
 use App\Http\Controllers\PrestamoController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,7 @@ Route::post('/excel/import2', [App\Http\Controllers\ExcelController::class, 'imp
 
 
 //rutas de generacion de pdfs
+Route::post('/reporte/pdf', [\App\Http\Controllers\ReporteController::class, 'pdf'])->middleware('auth')->name('reporte.pdf');
 Route::get('/prestamo/pdf', [App\Http\Controllers\PrestamoController::class, 'pdf'])->middleware('auth')->name('prestamo.pdf');
 Route::get('/herramienta/pdf', [App\Http\Controllers\HerramientaController::class, 'pdf'])->middleware('auth')->name('herramienta.pdf');
 Route::get('/matConsumible/pdf', [App\Http\Controllers\MatConsumibleController::class, 'pdf'])->middleware('auth')->name('matConsumible.pdf');
@@ -53,4 +55,5 @@ Route::resource('/herramienta', HerramientaController::class)->middleware('auth'
 Route::resource('/matConsumible', MatConsumibleController::class)->middleware('auth')->names('matConsumible');
 Route::resource('/prestamo', PrestamoController::class)->middleware('auth')->names('prestamo');
 Route::resource('/registro', RegistroController::class)->middleware('auth')->names('registro');
+Route::resource('/reporte', ReporteController::class)->middleware('auth')->names('reporte');
 

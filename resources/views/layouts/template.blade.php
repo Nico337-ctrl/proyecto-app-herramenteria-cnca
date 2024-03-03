@@ -84,7 +84,7 @@
                         <a class="collapse-item" href="prestamo">Realizar Prestamos</a>
                         <a class="collapse-item" href="excel">Realizar Importes</a>
                         <a class="collapse-item" href="registro">Ver Registros</a>
-                        <a class="collapse-item" href="reportes">Generar Reportes</a>
+                        <a class="collapse-item" href="reporte">Generar Reportes</a>
                     </div>
                 </div>
             </li>
