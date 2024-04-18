@@ -9,7 +9,7 @@ class Herramienta extends Model
 {
     use HasFactory;
     protected $table = 'herramientas';
-    
+
     protected $fillable = [
         'codigo',
         'descripcion',
@@ -22,5 +22,10 @@ class Herramienta extends Model
     public function registro()
     {
         return $this->hasMany(Registro::class, 'origen', 'id')->where('origen', 'herramientas');
+    }
+
+    public function Mega_inventario()
+    {
+        return $this->belongsTo(Mega_inventario::class);
     }
 }

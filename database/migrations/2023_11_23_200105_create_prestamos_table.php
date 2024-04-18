@@ -20,28 +20,8 @@ return new class extends Migration
             $table->string('id_aprendiz');
             $table->integer('dias_por_fuera');
             $table->text('observacion');
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->unsignedBigInteger('herramienta_id')->nullable();
-            $table->foreign('herramienta_id')
-                ->references('id')
-                ->on('herramientas')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->unsignedBigInteger('mat_consumible_id')->nullable();
-            $table->foreign('mat_consumible_id')
-                ->references('id')
-                ->on('mat_consumibles')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
+            $table->string('usuario_prestamista');
+            $table->text('elementos_prestados');
             $table->timestamps();
         });
     }

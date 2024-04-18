@@ -6,6 +6,7 @@ use App\Models\Prestamo;
 use Illuminate\Http\Request;
 use App\Models\Herramienta;
 use App\Models\MatConsumible;
+use App\Models\Inventario;
 use App\Events\CambioRealizado;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -15,8 +16,10 @@ class PrestamoController extends Controller
 
     public function index()
     {
-        $prestamos = Prestamo::all();
-        return view('prestamo.index', compact('prestamos'));
+        return view('prestamo.index',
+        ['prestamos' => Prestamo::all(),
+        'mat_consumibles' => MatConsumible::all(),
+        'herramientas' => Herramienta::all()]);
     }
 
     /**
@@ -24,28 +27,29 @@ class PrestamoController extends Controller
      */
     public function create()
     {
-        return view('prestamo.create', ['herramientas' => Herramienta::all(), 'mat_consumibles' => MatConsumible::all()]);
+        return view('prestamo.create',
+        ['herramientas' => Herramienta::all(), 'mat_consumibles' => MatConsumible::all()]);
     }
 
-    public function pdf(){
+    public function pdf()
+    {
         $prestamos = Prestamo::all();
-        $pdf = Pdf::loadView('prestamo.pdf', ['prestamos'=>$prestamos]);
+        $pdf = Pdf::loadView('prestamo.pdf', ['prestamos' => $prestamos]);
         return $pdf->stream();
     }
 
     public function store(Request $request)
     {
+
         $request->validate([
             'instructor_prestamista' => 'required|max:255',
             'nombre_aprendiz' => 'required|max:255',
-            'ficha_aprendiz' => 'required',
-            'id_aprendiz' => 'required',
-            'dias_por_fuera' => 'nullable',
-            'observacion' => 'nullable',
-            'user_id' => 'nullable',
-            'herramienta_id' => 'nullable',
-            'mat_consumible_id' => 'nullable',
-            'cantidad' => 'nullable|numeric', // Ajusta según tus requisitos de validación
+            'ficha_aprendiz' => 'required|numeric',
+            'id_aprendiz' => 'required|numeric',
+            'dias_por_fuera' => 'required|numeric',
+            'observacion' => 'required|max:255',
+            'usuario_prestamista' => 'required',
+            'elementos_prestados' => 'required'
         ]);
 
         $prestamo = new Prestamo();
@@ -53,27 +57,27 @@ class PrestamoController extends Controller
         $prestamo->nombre_aprendiz = $request->input('nombre_aprendiz');
         $prestamo->ficha_aprendiz = $request->input('ficha_aprendiz');
         $prestamo->id_aprendiz = $request->input('id_aprendiz');
-        $prestamo->dias_por_fuera = 1;
+        $prestamo->dias_por_fuera = 0;
         $prestamo->observacion = 'ninguna';
-        $prestamo->user_id = auth()->user()->id;
-        $prestamo->herramienta_id = $request->input('herramienta_id');
-        $prestamo->mat_consumible_id = $request->input('mat_consumible_id');
+        $prestamo->usuario_prestamista = auth()->user()->name;
+        $prestamo->elementos_prestados = "Herramientas y Materiales prestados:
 
-        // Restar la cantidad prestada en la tabla MatConsumibles
-        if ($request->input('mat_consumible_id')) {
-            $matConsumible = MatConsumible::find($request->input('mat_consumible_id'));
-            $cantidad = $request->input('cantidad');
+        ";
 
-            // Asegúrate de manejar adecuadamente la lógica de restar la cantidad
+        // Actualiza la cantidad en la tabla MatConsumibles
+        foreach ($request->input('mat_consumible_id') as $matConsumibleId) {
+            $matConsumible = MatConsumible::find($matConsumibleId);
+            $cantidad = $request->input('cantidad.' . $matConsumibleId);
+
             if ($matConsumible && is_numeric($cantidad) && $cantidad > 0) {
                 $matConsumible->cantidad -= $cantidad;
                 $matConsumible->save();
             }
         }
 
-        // Cambiar el estado de la herramienta a "prestado"
-        if ($request->input('herramienta_id')) {
-            $herramienta = Herramienta::find($request->input('herramienta_id'));
+        // Cambia el estado de las herramientas a "prestado"
+        foreach ($request->input('herramienta_id') as $herramientaId) {
+            $herramienta = Herramienta::find($herramientaId);
             if ($herramienta) {
                 $herramienta->estado = 'prestado';
                 $herramienta->save();

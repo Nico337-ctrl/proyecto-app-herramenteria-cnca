@@ -24,12 +24,17 @@ class EventServiceProvider extends ServiceProvider
 
     ];
 
+    protected $observe = [
+        'App\Models\Herramienta' => 'App\Observers\HerramientaObserver',
+    ];
+
     /**
      * Register any events for your application.
      */
     public function boot(): void
     {
         //
+
     }
 
     /**

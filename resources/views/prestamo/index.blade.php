@@ -27,6 +27,8 @@
                     <th>Observación</th>
                     <th>Fecha prestamo</th>
                     <th>Fecha devolucion</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

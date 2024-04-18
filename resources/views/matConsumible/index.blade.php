@@ -18,7 +18,7 @@
 
         <br>
         <br>
-        <table class="table table-hover">
+        <table id="tableH" class="table table-hover">
             <thead>
                 <tr>
                     <th>Codigo</th>

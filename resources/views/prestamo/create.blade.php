@@ -44,40 +44,50 @@
                             value="{{ old('id_aprendiz') }}" required>
                     </div>
 
-                    
-
-
                     <strong>
-                        <label for="id_aprendiz" class="col-sm-2 col-form-label">Herramienta</label>
+                        <label for="herramientas" class="col-sm-2 col-form-label">Herramientas y materiales consumibles:</label>
                     </strong>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="herramienta_id" id="herramienta_id"
-                            value="{{ old('herramienta_id') }}" >
+
+                        <select class=" js-example-basic-multiple" name="herramientas[]" multiple="multiple"
+                            style="width: 100%">
+                            @foreach ($herramientas as $herramienta)
+                                @if ($herramienta->estado == 'disponible')
+                                    <option value="{{ $herramienta->id }}">{{ $herramienta->codigo }} --
+                                        {{ $herramienta->descripcion }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+
                     </div>
 
-                    {{-- <strong>
-                        <label for="id_aprendiz" class="col-sm-2 col-form-label">Mataerial consumible</label>
-                    </strong>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" name="mat_consumible_id" id="mat_consumible_id"
-                            value="{{ old('mat_consumible_id') }}">
-                    </div> --}}
-
                     <strong>
-                        <label for="mat_consumible_id" class="col-sm-2 col-form-label">Material Consumible</label>
+                        <label for="mat_consumibles" class="col-sm-2 col-form-label">Materiales consumibles</label>
                     </strong>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="mat_consumible_id" id="mat_consumible_id"
-                            value="{{ old('mat_consumible_id') }}">
+                        <select name="mat_consumibles[]" class="form-control js-example-basic-multiple"
+                            multiple="multiple" style="width: 100%">
+                            @foreach ($mat_consumibles as $mat_consumible)
+                                @if ($mat_consumible->estado == 'disponible')
+                                <option value="{{ $mat_consumible->id }}">{{ $mat_consumible->codigo }} --
+                                    {{ $mat_consumible->descripcion }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
 
                     <!-- Cantidad para Material Consumible -->
                     <strong>
-                        <label for="cantidad" class="col-sm-2 col-form-label">Cantidad Material Consumible</label>
+                        <label for="cantidad_mat_consumibles" class="col-sm2 col-form-label">Selecciona la cantidad de cada material a prestar:</label>
                     </strong>
                     <div class="col-sm-5">
-                        <input type="number" class="form-control" name="cantidad"
-                            id="cantidad" value="{{ old('cantidad') }}">
+                        <select name="" id="">
+                            @foreach($mat_consumibles as $mat_consumible)
+                                @if($mat_consumible->estado = 'disponible')
+                                    <option value="{{ $mat_consumible->id }}">{{ $mat_consumible->descripcion }} --{{ $mat_consumible->cantidad }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
 
                     <br>
@@ -89,9 +99,22 @@
     </div>
 </form>
 @section('js')
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                theme: "classic"
+            });
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI/tTQa9F8kWuR5JfIeZl6+nLlYUZ5K90Zl8l+FY=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+
+
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection

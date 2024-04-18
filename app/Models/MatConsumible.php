@@ -25,5 +25,10 @@ class MatConsumible extends Model
     {
         return $this->hasMany(Registro::class, 'origen', 'id')->where('origen', 'mat_consumibles');
     }
+
+    public function megaInventario()
+    {
+        return $this->belongsTo(Mega_Inventario::class);
+    }
 }
 
