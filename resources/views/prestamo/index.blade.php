@@ -19,12 +19,14 @@
         <table id="tableH" class="table table-hover">
             <thead>
                 <tr>
+                    <th>Herramentero Prestamista</th>
                     <th>Instructor</th>
                     <th>Aprendiz</th>
                     <th>Ficha aprendiz</th>
                     <th>Documento aprendiz</th>
                     <th>Días por fuera</th>
                     <th>Observación</th>
+                    <th>Elementos Prestados</th>
                     <th>Fecha prestamo</th>
                     <th>Fecha devolucion</th>
                     <th></th>
@@ -34,12 +36,14 @@
             <tbody>
                 @foreach ($prestamos as $prestamo)
                     <tr>
+                        <td>{{ $prestamo->usuario_prestamista }}</td>
                         <td>{{ $prestamo->instructor_prestamista }}</td>
                         <td>{{ $prestamo->nombre_aprendiz }}</td>
                         <td>{{ $prestamo->ficha_aprendiz }}</td>
                         <td>{{ $prestamo->id_aprendiz }}</td>
                         <td>{{ $prestamo->dias_por_fuera }}</td>
                         <td>{{ $prestamo->observacion }}</td>
+                        <td>{{ $prestamo->elementos_prestados }}</td>
                         <td>{{ $prestamo->created_at->format('d/m/Y H:i:s')  }}</td>
                         <td>{{ $prestamo->updated_at->format('d/m/Y H:i:s')  }}</td>
                         <td>

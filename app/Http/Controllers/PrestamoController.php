@@ -39,60 +39,89 @@ class PrestamoController extends Controller
     }
 
     public function store(Request $request)
-    {
+{
+    // Validar la entrada del formulario
+    $request->validate([
+        'instructor_prestamista' => 'required|max:255',
+        'nombre_aprendiz' => 'required|max:255',
+        'ficha_aprendiz' => 'required|numeric',
+        'id_aprendiz' => 'required|numeric',
+        'herramientas' => 'required|array',
+        'mat_consumibles' => 'nullable|array',
+        'cantidad_mat_consumible' => 'nullable|numeric'
+    ]);
 
-        $request->validate([
-            'instructor_prestamista' => 'required|max:255',
-            'nombre_aprendiz' => 'required|max:255',
-            'ficha_aprendiz' => 'required|numeric',
-            'id_aprendiz' => 'required|numeric',
-            'dias_por_fuera' => 'required|numeric',
-            'observacion' => 'required|max:255',
-            'usuario_prestamista' => 'required',
-            'elementos_prestados' => 'required'
-        ]);
+    // Crear un nuevo objeto de préstamo
+    $prestamo = new Prestamo();
+    $prestamo->instructor_prestamista = $request->input('instructor_prestamista');
+    $prestamo->nombre_aprendiz = $request->input('nombre_aprendiz');
+    $prestamo->ficha_aprendiz = $request->input('ficha_aprendiz');
+    $prestamo->id_aprendiz = $request->input('id_aprendiz');
+    $prestamo->dias_por_fuera = 0;
+    $prestamo->observacion = 'ninguna';
+    $prestamo->usuario_prestamista = auth()->user()->name;
 
-        $prestamo = new Prestamo();
-        $prestamo->instructor_prestamista = $request->input('instructor_prestamista');
-        $prestamo->nombre_aprendiz = $request->input('nombre_aprendiz');
-        $prestamo->ficha_aprendiz = $request->input('ficha_aprendiz');
-        $prestamo->id_aprendiz = $request->input('id_aprendiz');
-        $prestamo->dias_por_fuera = 0;
-        $prestamo->observacion = 'ninguna';
-        $prestamo->usuario_prestamista = auth()->user()->name;
-        $prestamo->elementos_prestados = "Herramientas y Materiales prestados:
+    // Arrays que contienen las herramientas y materiales seleccionados
+    $herramientasSeleccionadas = $request->input('herramientas', []);
+    $matConsumiblesSeleccionados = $request->input('mat_consumibles', []);
+    $cantidad_mat_consumible = $request->input('cantidad_mat_consumible');
 
-        ";
+    // Texto para almacenar descripciones de elementos prestados
+    $elementosPrestados = "";
 
-        // Actualiza la cantidad en la tabla MatConsumibles
-        foreach ($request->input('mat_consumible_id') as $matConsumibleId) {
-            $matConsumible = MatConsumible::find($matConsumibleId);
-            $cantidad = $request->input('cantidad.' . $matConsumibleId);
+    // Iterar sobre herramientas seleccionadas y obtener sus descripciones
+    foreach ($herramientasSeleccionadas as $herramientaId) {
+        $herramienta = Herramienta::find($herramientaId);
+        if ($herramienta) {
+            // Cambia el estado de la herramienta a "prestado"
+            $herramienta->estado = 'prestado';
+            $herramienta->save();
 
-            if ($matConsumible && is_numeric($cantidad) && $cantidad > 0) {
-                $matConsumible->cantidad -= $cantidad;
-                $matConsumible->save();
-            }
+            // Agregar la descripción de la herramienta al texto
+            $elementosPrestados .= "{$herramienta->codigo} - {$herramienta->descripcion}, ";
         }
-
-        // Cambia el estado de las herramientas a "prestado"
-        foreach ($request->input('herramienta_id') as $herramientaId) {
-            $herramienta = Herramienta::find($herramientaId);
-            if ($herramienta) {
-                $herramienta->estado = 'prestado';
-                $herramienta->save();
-            }
-        }
-
-        $prestamo->save();
-        $nombre_prestamo = $prestamo->nombre_aprendiz;
-        event(new CambioRealizado('prestamo', 'prestamo realizado', $nombre_prestamo, now()));
-        return view('prestamo.msg', [
-            'prestamos' => Prestamo::all(),
-            'herramientas' => Herramienta::all(),
-            'mat_consumibles' => MatConsumible::all()
-        ]);
     }
+
+    // Iterar sobre materiales consumibles seleccionados y obtener sus descripciones
+    foreach ($matConsumiblesSeleccionados as $matConsumibleId) {
+        $matConsumible = MatConsumible::find($matConsumibleId);
+        if ($matConsumible) {
+            // Actualiza la cantidad y cambia el estado si es necesario
+            $cantidad = $request->input('cantidad.' . $matConsumibleId);
+            if (is_numeric($cantidad_mat_consumible) && $cantidad_mat_consumible > 0) {
+                $matConsumible->cantidad -= $cantidad_mat_consumible;
+                $matConsumible->save();
+
+                if ($matConsumible->cantidad <= 0) {
+                    $matConsumible->estado = 'agotado';
+                }
+
+                // Agregar la descripción del material consumible al texto
+                $elementosPrestados .= "{$matConsumible->codigo} - {$matConsumible->descripcion}, ";
+            }
+        }
+    }
+
+    // Quitar la última coma y espacio del texto
+    $elementosPrestados = rtrim($elementosPrestados, ", ");
+
+    // Asignar el texto de elementos prestados al campo del préstamo
+    $prestamo->elementos_prestados = $elementosPrestados;
+
+    // Guardar el préstamo
+    $prestamo->save();
+
+    // Emitir evento para notificar sobre el préstamo realizado
+    event(new CambioRealizado('prestamo', 'Préstamo realizado', $prestamo->nombre_aprendiz, now()));
+
+    // Retornar una vista con los datos actualizados
+    return view('prestamo.msg', [
+        'prestamos' => Prestamo::all(),
+        'herramientas' => Herramienta::all(),
+        'mat_consumibles' => MatConsumible::all(),
+    ]);
+}
+
 
 
 

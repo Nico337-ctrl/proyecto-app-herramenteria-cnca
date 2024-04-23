@@ -45,19 +45,18 @@
                     </div>
 
                     <strong>
-                        <label for="herramientas" class="col-sm-2 col-form-label">Herramientas y materiales consumibles:</label>
+                        <label for="herramientas" class="col-sm-2 col-form-label">Herramientas:</label>
                     </strong>
                     <div class="col-sm-5">
 
-                        <select class=" js-example-basic-multiple" name="herramientas[]" multiple="multiple"
-                            style="width: 100%">
+                        <select class="js-example-basic-multiple" id="herramientas" name="herramientas[]" multiple="multiple" style="width: 100%" required>
                             @foreach ($herramientas as $herramienta)
                                 @if ($herramienta->estado == 'disponible')
-                                    <option value="{{ $herramienta->id }}">{{ $herramienta->codigo }} --
-                                        {{ $herramienta->descripcion }}</option>
+                                    <option value="{{ $herramienta->id }}" {{ (in_array($herramienta->id, old('herramientas', []))) ? 'selected' : '' }}>{{ $herramienta->codigo }} -- {{ $herramienta->descripcion }}</option>
                                 @endif
                             @endforeach
                         </select>
+
 
                     </div>
 
@@ -65,34 +64,29 @@
                         <label for="mat_consumibles" class="col-sm-2 col-form-label">Materiales consumibles</label>
                     </strong>
                     <div class="col-sm-5">
-                        <select name="mat_consumibles[]" class="form-control js-example-basic-multiple"
-                            multiple="multiple" style="width: 100%">
+                        <select id="mat_consumibles" name="mat_consumibles[]" class="form-control js-example-basic-multiple" multiple="multiple" style="width: 100%">
                             @foreach ($mat_consumibles as $mat_consumible)
                                 @if ($mat_consumible->estado == 'disponible')
-                                <option value="{{ $mat_consumible->id }}">{{ $mat_consumible->codigo }} --
-                                    {{ $mat_consumible->descripcion }}</option>
+                                    <option value="{{ $mat_consumible->id }}" {{ (in_array($mat_consumible->id, old('mat_consumibles', []))) ? 'selected' : '' }}>{{ $mat_consumible->codigo }} -- {{ $mat_consumible->descripcion }}</option>
                                 @endif
                             @endforeach
                         </select>
+
                     </div>
 
-                    <!-- Cantidad para Material Consumible -->
                     <strong>
-                        <label for="cantidad_mat_consumibles" class="col-sm2 col-form-label">Selecciona la cantidad de cada material a prestar:</label>
+                        <label for="cantidad_mat_consumible" class="col-sm-5 ">Cantidad de material:</label>
                     </strong>
-                    <div class="col-sm-5">
-                        <select name="" id="">
-                            @foreach($mat_consumibles as $mat_consumible)
-                                @if($mat_consumible->estado = 'disponible')
-                                    <option value="{{ $mat_consumible->id }}">{{ $mat_consumible->descripcion }} --{{ $mat_consumible->cantidad }}</option>
-                                @endif
-                            @endforeach
-                        </select>
+                    <div  class="col-sm-5">
+                        <input type="number" class="form-control" name="cantidad_mat_consumible" id="cantidad_mat_consumible"
+                        value="{{ old('cantidad_mat_consumible') }}">
                     </div>
+
+
 
                     <br>
                     <a href="{{ url('prestamo') }}" class="btn btn-secondary">Regresar</a>
-                    <button type="submit" class="btn btn-success">Guardar prestamo</button>
+                    <button id="enviarDatos" type="submit" class="btn btn-success">Guardar prestamo</button>
                 </div>
             </div>
         </div>
