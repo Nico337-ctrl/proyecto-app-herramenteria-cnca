@@ -15,6 +15,8 @@
         rel="stylesheet">
 
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+
 
 
 
@@ -62,19 +64,29 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Inventarios</span>
+                    <span>Admr Almacen</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+                        <h6 class="collapse-header">Inventarios: </h6>
                         <a class="collapse-item" href="herramienta">Herramientas</a>
                         <a class="collapse-item" href="matConsumible">Material consumible</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Otras funciones: </h6>
+                        <a class="collapse-item" href="prestamo">Realizar Prestamos</a>
+                        <a class="collapse-item" href="excel">Realizar Importes</a>
+                        <a class="collapse-item" href="registro">Ver Registros</a>
+                        <a class="collapse-item" href="reporte">Generar Reportes</a>
                     </div>
                 </div>
             </li>
             <hr class="sidebar-divider">
 
             <!-- Nav Item - Utilities Collapse Menu -->
+            {{-- <div class="sidebar-heading">
+                Suministros
+            </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -90,36 +102,35 @@
                         <a class="collapse-item" href="reporte">Generar Reportes</a>
                     </div>
                 </div>
-            </li>
+            </li> --}}
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Addons
-            </div> -->
+            <div class="sidebar-heading">
+                Usuarios
+            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>Admr Usuarios</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <h6 class="collapse-header">Personal:</h6>
+                        <a class="collapse-item" href="login.html">Ver usuarios</a>
+                        <a class="collapse-item" href="register.html">Registrar usuarios</a>
+                        <a class="collapse-item" href="forgot-password.html">Cambiar Contraseña</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Extras:</h6>
+                        <a class="collapse-item" href="404.html">Creditos</a>
+                        <a class="collapse-item" href="blank.html">Manual</a>
                     </div>
                 </div>
-            </li> -->
+            </li>
 
             <!-- Nav Item - Charts -->
             <!-- <li class="nav-item">

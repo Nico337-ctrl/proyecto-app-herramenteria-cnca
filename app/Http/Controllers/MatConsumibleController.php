@@ -73,7 +73,7 @@ class MatConsumibleController extends Controller
 
         $descripcion = $matConsumible->descripcion;
         event(new CambioRealizado('mat_consumible', 'creacion', $descripcion, now()));
-        return view('matConsumible.msg', ['matConsumibles' => MatConsumible::all()]);
+        return redirect('matConsumible');
     }
 
     /**
@@ -122,7 +122,7 @@ class MatConsumibleController extends Controller
 
         $descripcion = $matConsumible->descripcion;
         event(new CambioRealizado('mat_consumible', 'actualizacion', $descripcion, now()));
-        return view('matConsumible.msg');
+        return redirect('matConsumible')->with('update', 'ok');
     }
 
     /**

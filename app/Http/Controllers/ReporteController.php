@@ -27,10 +27,11 @@ class ReporteController extends Controller
                   ->orWhere('nombre_aprendiz', 'like', "%$dato%")
                   ->orWhere('ficha_aprendiz', 'like', "%$dato%")
                   ->orWhere('id_aprendiz', 'like', "%$dato%")
-                  ->orWhere('observacion', 'like', "%$dato%");
+                  ->orWhere('observacion', 'like', "%$dato%")
+                  ->orWhere('elementos_prestados', 'like', "%$dato%");
         })->get();
 
-        $pdf = Pdf::loadView('reporte.pdf', ['datos' => $datos]);
+        $pdf = Pdf::loadView('reporte.pdf', ['datos' => $datos, 'busqueda' => $dato]);
         return $pdf->stream();
     }
 }

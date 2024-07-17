@@ -63,7 +63,7 @@ class HerramientaController extends Controller
 
         $descripcion = $herramientas->descripcion;
         event(new CambioRealizado('herramienta', 'creacion', $descripcion, now()));
-        return view('herramienta.msg', ['herramientas' => Herramienta::all()]);
+        return redirect('herramienta')->with('succes');
     }
 
     /**
@@ -106,7 +106,7 @@ class HerramientaController extends Controller
         $descripcion = $herramienta->descripcion;
         //haciendo llamado al evento obteniendo: origen, tipo_cambio, elemento_id y fecha (now(()))
         event(new CambioRealizado('herramienta', 'actualizacion', $descripcion, now()));
-        return view('herramienta.msg');
+        return redirect('herramienta')->with('update', 'ok');
     }
 
     /**
