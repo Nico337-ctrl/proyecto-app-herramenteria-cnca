@@ -1,4 +1,4 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -18,4 +18,42 @@ table {
 
 .contenedorTabla {
     background-color: orange;
+} */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedorTabla {
+    margin: 20px;
+}
+
+#tableH {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tableH th, #tableH td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#tableH th {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+#tableH tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#tableH tr:hover {
+    background-color: #ddd;
+}
+
+.page-break {
+    page-break-after: always;
 }

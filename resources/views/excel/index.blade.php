@@ -33,5 +33,6 @@
             </form>
         </div>
     @endcan
+    @include('layouts.footer')
 
 @endsection

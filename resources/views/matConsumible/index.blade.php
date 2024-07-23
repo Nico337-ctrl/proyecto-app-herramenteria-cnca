@@ -145,6 +145,7 @@
 
 
 @include('matConsumible.create')
+@include('layouts.footer')
 
 {{-- @foreach ($matConsumibles as $matConsumible) --}}
 

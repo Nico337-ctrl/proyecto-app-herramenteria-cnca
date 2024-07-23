@@ -118,6 +118,7 @@
     
 
     @include('herramienta.create')
+    @include('layouts.footer')
 
 
 @endsection

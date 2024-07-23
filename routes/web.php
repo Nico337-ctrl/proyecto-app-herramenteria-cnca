@@ -7,6 +7,7 @@ use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ReporteController;
 use Illuminate\Support\Facades\Route;
+use App\Exceptions\TimeoutException;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
+
+
+//ruta de error de generado de importes. pdf
+Route::get('/errors/timeout', function () {
+    return view('errors.timeout');
+})->name('errors.timeout');
+
 
 //rutas de importe de archivos xlsx (excel)
 Route::get('/excel/index', [App\Http\Controllers\ExcelController::class, 'index'])->middleware('auth')->name('excel.index');
@@ -45,7 +53,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-Route::resource('users', 'UserController');
 
 //rutas madre
 

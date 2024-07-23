@@ -115,11 +115,7 @@ class PrestamoController extends Controller
     event(new CambioRealizado('prestamo', 'Préstamo realizado', $prestamo->nombre_aprendiz, now()));
 
     // Retornar una vista con los datos actualizados
-    return view('prestamo.msg', [
-        'prestamos' => Prestamo::all(),
-        'herramientas' => Herramienta::all(),
-        'mat_consumibles' => MatConsumible::all(),
-    ]);
+    return redirect('prestamo')->with('succes');
 }
 
 
@@ -180,7 +176,7 @@ class PrestamoController extends Controller
         $prestamo->save();
         $nombre_prestamo = $prestamo->nombre_aprendiz;
         event(new CambioRealizado('prestamo', 'prestamo devolucion', $nombre_prestamo, now()));
-        return view('prestamo.msg', ['prestamo' => Prestamo::all()]);
+        return redirect('prestamo')->with('update', 'ok');
     }
 
     public function destroy($id)

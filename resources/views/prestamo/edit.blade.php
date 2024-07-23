@@ -19,36 +19,7 @@
                                 <input type="text" class="form-control"  name="observacion"  id="observacion" value="{{ $prestamo->observacion }}" required>
                             </div>
                         </div>
-
-                        {{-- <div class="md-3 row">
-                            <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control"  name="descripcion"  id="descripcion" value="{{ $prestamo->descripcion }}" required>
-                            </div>
-                        </div>
-
-                        <div class="md-3 row">
-                            <label for="estante" class="col-sm-2 col-form-label">Estante</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control"  name="estante"  id="estante" value="{{ $prestamo->estante }}" required>
-                            </div>
-                        </div>
-
-                        <div class="md-3 row">
-                            <label for="gaveta" class="col-sm-2 col-form-label">Entrepaño</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control"  name="gaveta"  id="gaveta" value="{{ $prestamo->gaveta }}" required>
-                            </div>
-                        </div>
-                        
-                        
-                        <div class="md-3 row">
-                            <label for="medida" class="col-sm-2 col-form-label">Medida</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control"  name="medida"  id="medida" value="{{ $prestamo->medida }}" required>
-                            </div>
-                        </div> --}}
-
+                        <br>
                         <button type="submit" class="btn btn-success">Realizar devolucion</button>
                     </div>
                 </div>

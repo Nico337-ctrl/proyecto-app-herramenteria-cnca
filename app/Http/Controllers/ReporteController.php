@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Prestamo;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exceptions\TimeoutException;
 
 
 class ReporteController extends Controller
@@ -21,17 +22,31 @@ class ReporteController extends Controller
 
         $dato = $request->input('dato');
 
-        // Utiliza where para buscar registros que contengan el dato en cualquier campo
-        $datos = Prestamo::where(function ($query) use ($dato) {
-            $query->where('instructor_prestamista', 'like', "%$dato%")
-                  ->orWhere('nombre_aprendiz', 'like', "%$dato%")
-                  ->orWhere('ficha_aprendiz', 'like', "%$dato%")
-                  ->orWhere('id_aprendiz', 'like', "%$dato%")
-                  ->orWhere('observacion', 'like', "%$dato%")
-                  ->orWhere('elementos_prestados', 'like', "%$dato%");
-        })->get();
+        set_time_limit(30);
 
-        $pdf = Pdf::loadView('reporte.pdf', ['datos' => $datos, 'busqueda' => $dato]);
-        return $pdf->stream();
+        try {
+            // Utiliza where para buscar registros que contengan el dato en cualquier campo
+            $datos = Prestamo::where(function ($query) use ($dato) {
+                $query->whereRaw('instructor_prestamista like ?', "%$dato%")
+                      ->orWhereRaw('nombre_aprendiz like ?', "%$dato%")
+                      ->orWhereRaw('ficha_aprendiz like ?', "%$dato%")
+                      ->orWhereRaw('id_aprendiz like ?', "%$dato%")
+                      ->orWhereRaw('observacion like ?', "%$dato%")
+                      ->orWhereRaw('elementos_prestados like ?', "%$dato%");
+            })->get();
+
+            if ($datos->isEmpty()) {
+                throw new TimeoutException('No se encontraron resultados para la búsqueda.');
+            }
+
+            $pdf = Pdf::loadView('reporte.pdf', ['datos' => $datos, 'busqueda' => $dato]);
+            return $pdf->stream();
+
+        } catch (Exception $e) {
+            if ($e instanceof TimeoutException) {
+                return redirect()->route('errors.timeout');
+            }
+            throw $e;
+        }
     }
 }
